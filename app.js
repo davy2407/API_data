@@ -21,7 +21,7 @@ async function testLocalisation(){
         // affiche la deuxieme page 
         // 10 resultats par pages par default (per_page = ) pour modifier
         const radius = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&page=1').then(resultat => resultat.json()).then(json => json)
-        console.log("affiche les entreprises de la ville demandée dans un rayon de 20 km ")
+        console.log('affiche les entreprises de la ville demandée dans un rayon de '+rayon+' km ')
         console.log(radius);
     }
     radiusEntreprise();
