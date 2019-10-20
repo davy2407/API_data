@@ -2,6 +2,7 @@
 var page = 1;
 
 async function testLocalisation(){
+    
     const ville = recupVille();
     const naf = recupCodeNaf();
     const rayon = recupRayon();
@@ -43,8 +44,12 @@ function capitalize(str){
 
 function recupVille(){
     const ville = document.getElementById('rechercheVille').value;
+    if (ville =="") {
+        alert('nul');
+        
+    }else {
     capitalize(ville);
-    return ville;
+    return ville;}
 }
 
 // function recup le code naf (secteur d'activtés ) demandé
@@ -93,7 +98,7 @@ function rechercheTaille(){
 	
 	const recherche = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&page='+page).then( resultat => resultat.json()).then( json => json )
     console.log(recherche);
-    pageSuivante();
+    
 }
 
 // function charge page suivante
@@ -106,15 +111,24 @@ function pageSuivante(){
     page +=1;
 }
 
+// function page précédente 
+
+
+function pagePrecedente(){
+    page-=1;
+}
+
 
 
 
 
 //addeventlist
 
-document.getElementById('bouttonTaille').addEventListener('click', rechercheTaille);
-
-document.getElementById('chargerPage').addEventListener('click', rechercheTaille );
+document.getElementById('bouttonTaille').addEventListener('click',  rechercheTaille);
+document.getElementById('chargerPage').addEventListener('click',  pageSuivante  );
+document.getElementById('chargerPage').addEventListener('click',  rechercheTaille  );
+document.getElementById('pagePrecedente').addEventListener('click', pagePrecedente);
+document.getElementById('pagePrecedente').addEventListener('click', rechercheTaille);
 
 
 
