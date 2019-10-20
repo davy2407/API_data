@@ -86,7 +86,7 @@ function recupTaille(){
 // 52	5 000 à 9 999 salariés
 // 53	10 000 salariés et plus
 
-function API(){
+function rechercheTaille(){
     const ville = recupVille();
     const taille = recupTaille();
     const naf = recupCodeNaf();
@@ -95,7 +95,7 @@ function API(){
 	console.log(recherche);
 }
 
-document.getElementById('bouttonTaille').addEventListener('click', API);
+document.getElementById('bouttonTaille').addEventListener('click', rechercheTaille);
 
 
 
