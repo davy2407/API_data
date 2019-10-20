@@ -1,3 +1,15 @@
 #boutton{
     width: 90px;
 }
+
+
+#secteurActivite{
+    margin-top: 10%;
+    border: 1px solid blue;
+}
+
+
+#tailleEntreprise{
+    margin-top: 10%;
+    border: 1px solid red;
+}

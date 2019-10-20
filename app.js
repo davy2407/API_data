@@ -1,11 +1,4 @@
-function API(){
-	
-	
-	const recherche = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/*?activite_principale=6201Z&code_postal=76000&per_page=50').then( resultat => resultat.json()).then( json => json )
-	console.log(recherche);
-}
 
-API();
 
 
 async function testLocalisation(){
@@ -35,7 +28,11 @@ async function testLocalisation(){
 
 
 
+// function capitalize
 
+function capitalize(str){
+    return str[0].toUpperCase() + str.slice(1);
+}
 
 
 
@@ -46,6 +43,7 @@ async function testLocalisation(){
 
 function recupVille(){
     const ville = document.getElementById('rechercheVille').value;
+    capitalize(ville);
     return ville;
 }
 
@@ -62,6 +60,42 @@ function recupRayon(){
     const rayon =  document.getElementById('rayon').value;
     return rayon;
 }
+
+// function recup taille demandé par utilisateur
+
+function recupTaille(){
+    const taille = document.getElementById('taille').value;
+    return taille;
+}
+
+// function version 1 recherche par taille entreprise
+
+// 00	0 salarié (n'ayant pas d'effectif au 31/12 mais ayant employé des salariés au cours de l'année de référence)
+// 01	1 ou 2 salariés
+// 02	3 à 5 salariés
+// 03	6 à 9 salariés
+// 11	10 à 19 salariés
+// 12	20 à 49 salariés
+// 21	50 à 99 salariés
+// 22	100 à 199 salariés
+// 31	200 à 249 salariés
+// 32	250 à 499 salariés
+// 41	500 à 999 salariés
+// 42	1 000 à 1 999 salariés
+// 51	2 000 à 4 999 salariés
+// 52	5 000 à 9 999 salariés
+// 53	10 000 salariés et plus
+
+function API(){
+    const ville = recupVille();
+    const taille = recupTaille();
+	
+	const recherche = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?tranche_effectif_salarie_entreprise='+taille).then( resultat => resultat.json()).then( json => json )
+	console.log(recherche);
+}
+
+document.getElementById('bouttonTaille').addEventListener('click', API);
+
 
 
 
