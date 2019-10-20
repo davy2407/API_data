@@ -89,8 +89,9 @@ function recupTaille(){
 function API(){
     const ville = recupVille();
     const taille = recupTaille();
+    const naf = recupCodeNaf();
 	
-	const recherche = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?tranche_effectif_salarie_entreprise='+taille).then( resultat => resultat.json()).then( json => json )
+	const recherche = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille).then( resultat => resultat.json()).then( json => json )
 	console.log(recherche);
 }
 
