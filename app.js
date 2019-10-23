@@ -9,12 +9,12 @@ async function testLocalisation(){
 
     let loc = await fetch('https://api-adresse.data.gouv.fr/search/?q='+ville).then( resultat => resultat.json()).then(json => json.features[0].geometry.coordinates)
     
-    function radiusEntreprise(){
+    async function radiusEntreprise(){
         // trouve les entreprises dans un rayon de recherche
         // lat/long parametre: radius 5km de base 
         // affiche la deuxieme page 
         // 10 resultats par pages par default (per_page = ) pour modifier
-        const radius = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&page=1').then(resultat => resultat.json()).then(json => json)
+        const radius = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&page=1').then(resultat => resultat.json()).then(json => json)
         console.log('affiche les entreprises de la ville demandée dans un rayon de '+rayon+' km ')
         console.log(radius);
     }
@@ -45,7 +45,7 @@ function capitalize(str){
 function recupVille(){
     const ville = document.getElementById('rechercheVille').value;
     if (ville =="") {
-        alert('nul');
+        alert('renseigner une ville');
         
     }else {
     capitalize(ville);
@@ -91,12 +91,12 @@ function recupTaille(){
 // 52	5 000 à 9 999 salariés
 // 53	10 000 salariés et plus
 
-function rechercheTaille(){
+async function rechercheTaille(){
     const ville = recupVille();
     const taille = recupTaille();
     const naf = recupCodeNaf();
 	
-	const recherche = fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&page='+page).then( resultat => resultat.json()).then( json => json )
+	const recherche = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&page='+page).then( resultat => resultat.json()).then( json => json )
     console.log(recherche);
     
 }
@@ -115,15 +115,56 @@ function pageSuivante(){
 
 
 function pagePrecedente(){
-    page-=1;
+    if (page == 1) {
+        page = 1;
+        
+    } else {
+        page -=1;
+    }
 }
 
 
+// test comparaison date
 
 
+// function compare date
+
+function compareDate(objet1,objet2){
+    var d1 = new Date(objet1[0],objet1[1],objet1[2]);
+    var d2 = new Date(objet2[0],objet2[1],objet2[2]);
+    if (d1 > d2) { 
+        alert("d1estaprèsd2");
+    } else if (d1 < d2) { 
+        alert("d1estavantd2"); 
+    } else {
+        alert("d1etd2sontlamêmedate");
+    }
+}
+ 
+
+// var d1 = new Date(2019,11,27); 
+// // Miseenplacedelasecondedate 
+// var d2 = new Date(2019, 11, 28);
+// if (d1 > d2) { 
+//     alert("d1estaprèsd2");
+// } else if (d1 < d2) { 
+//     alert("d1estavantd2"); 
+// } else {
+//     alert("d1etd2sontlamêmedate"); 
+// }
+
+function recupDateUtilisateur(){
+    var date1 = document.getElementById('premiereDate').value;
+    var date2 = document.getElementById('deuxiemeDate').value;
+    date1 = date1.split('/');
+    date2 = date2.split('/');
+    console.log(date1 , date2);
+    compareDate(date1,date2);
+    
+}
 
 //addeventlist
-
+document.getElementById('compareDate').addEventListener('click', recupDateUtilisateur);
 document.getElementById('bouttonTaille').addEventListener('click',  rechercheTaille);
 document.getElementById('chargerPage').addEventListener('click',  pageSuivante  );
 document.getElementById('chargerPage').addEventListener('click',  rechercheTaille  );
