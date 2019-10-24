@@ -151,9 +151,9 @@ function compareDate(objet1,objet2){
     var d1 = new Date(objet1[0],objet1[1],objet1[2]);
     var d2 = new Date(objet2[0],objet2[1],objet2[2]);
     if (d1 > d2) { 
-        console.log("entreprise affiché", objet1);
+        console.log("entreprise pas affiché", objet1);
     } else if (d1 < d2) { 
-        console.log("entreprise pas affiché", objet1); 
+        console.log("entreprise affiché", objet1); 
     } else {
         console.log("pas de date renseigné");
     }
