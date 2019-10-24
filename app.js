@@ -14,19 +14,14 @@ async function testLocalisation(){
         // lat/long parametre: radius 5km de base 
         // affiche la deuxieme page 
         // 10 resultats par pages par default (per_page = ) pour modifier
-        const radius = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&page=1').then(resultat => resultat.json()).then(json => json)
+        const radius = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&per_page=100&page=1').then(resultat => resultat.json()).then(json => json)
         console.log('affiche les entreprises de la ville demandée dans un rayon de '+rayon+' km ')
         console.log(radius);
+        debutActivite(radius.etablissements);
     }
     radiusEntreprise();
    
 }
-
-
-
-
-
-
 
 
 // function capitalize
@@ -75,6 +70,8 @@ function recupTaille(){
 
 // function version 1 recherche par taille entreprise
 
+
+// NN   Unité non employeuse
 // 00	0 salarié (n'ayant pas d'effectif au 31/12 mais ayant employé des salariés au cours de l'année de référence)
 // 01	1 ou 2 salariés
 // 02	3 à 5 salariés
@@ -96,11 +93,32 @@ async function rechercheTaille(){
     const taille = recupTaille();
     const naf = recupCodeNaf();
 	
-	const recherche = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&page='+page).then( resultat => resultat.json()).then( json => json )
+	const recherche = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&per_page=100&page='+page).then( resultat => resultat.json()).then( json => json )
     console.log(recherche);
+    console.log(recherche.etablissement[0].date_debut_activite)
+    
+}
+// function recup date debut activité et compare à la date demandé
+
+function debutActivite(tabDebutActivite){
+    for (let i = 0; i < tabDebutActivite.length; i++) {
+        var dateTest = format(tabDebutActivite[i].date_debut_activite);
+        recupDateUtilisateur(dateTest);
+
+        
+    }
     
 }
 
+// function converti date activité au bon format pour comparaison
+
+function format(date){
+    var debut = [];
+    debut[0] = date.substr(0,4);
+    debut[1] = date.substr(4,2);
+    debut[2] = date.substr(6);
+    return debut;
+}
 // function charge page suivante
 
 
@@ -133,11 +151,11 @@ function compareDate(objet1,objet2){
     var d1 = new Date(objet1[0],objet1[1],objet1[2]);
     var d2 = new Date(objet2[0],objet2[1],objet2[2]);
     if (d1 > d2) { 
-        alert("d1estaprèsd2");
+        console.log("entreprise affiché", objet1);
     } else if (d1 < d2) { 
-        alert("d1estavantd2"); 
+        console.log("entreprise pas affiché", objet1); 
     } else {
-        alert("d1etd2sontlamêmedate");
+        console.log("pas de date renseigné");
     }
 }
  
@@ -153,18 +171,18 @@ function compareDate(objet1,objet2){
 //     alert("d1etd2sontlamêmedate"); 
 // }
 
-function recupDateUtilisateur(){
+function recupDateUtilisateur(debutACTi){
     var date1 = document.getElementById('premiereDate').value;
-    var date2 = document.getElementById('deuxiemeDate').value;
+    // var date2 = document.getElementById('deuxiemeDate').value;
     date1 = date1.split('/');
-    date2 = date2.split('/');
-    console.log(date1 , date2);
-    compareDate(date1,date2);
+    // date2 = date2.split('/');
+    
+    compareDate(debutACTi,date1);
     
 }
 
 //addeventlist
-document.getElementById('compareDate').addEventListener('click', recupDateUtilisateur);
+// document.getElementById('compareDate').addEventListener('click', recupDateUtilisateur);
 document.getElementById('bouttonTaille').addEventListener('click',  rechercheTaille);
 document.getElementById('chargerPage').addEventListener('click',  pageSuivante  );
 document.getElementById('chargerPage').addEventListener('click',  rechercheTaille  );

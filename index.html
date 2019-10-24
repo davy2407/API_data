@@ -11,7 +11,7 @@
             Les Résultats sont affichés dans la console!
         </h1>
 
-        <input id="rechercheVille" type="text" placeholder="Ville" spellcheck="true">
+        <input id="rechercheVille" type="text" placeholder="Ville (ex : Petit-quevilly ; Rouen )" spellcheck="true">
         
         <select name="naf" id="naf">
                 <option value="">Choisir un secteur d'activités :</option>
@@ -107,11 +107,23 @@
         <option value="50">50 km</option>
         <option value="100">100 km</option>
   </select>
+  <div id="testDate">
+
+        <input id="premiereDate" type="datetime" placeholder="XXXX/XX/XX">
+        <!-- <input id="deuxiemeDate" type="datetime" placeholder="YYYY/YY/YY"> -->
+        <!-- <input id="compareDate" type="button" value="test comparaison"> -->
+
+
+
+
+    </div>
         <input id="boutton" type="button" value="Rechercher">
         </div>
         <div id="tailleEntreprise">
             <select name="taille" id="taille">
                         <option value="">tranche salariés :</option>
+                        <option value="NN">Unités non employeuses (pas de salarié au cours de l'année de référence et pas d'effectif au 31/12). Cette tranche peut contenir quelques effectifs inconnus</option>
+                        <option value="00">0 salarié (n'ayant pas d'effectif au 31/12 mais ayant employé des salariés au cours de l'année de référence)</option>
                         <option value="01">1 ou 2 salariés</option>
                         <option value="02">3 à 5 salariés</option>
                         <option value="03">6 à 9 salariés</option>
@@ -134,35 +146,27 @@
         
         
         <input id="bouttonTaille" type="button" value="recherche taille">
-
-
-
-        </div>
-
-
-
         <div id="charger">
 
             
-            <input id="pagePrecedente" type="button" value="Page précédente">
-            <input id="chargerPage" type="button" value="Page suivante">
-            (<span>Attention la fonction page suivante/précédente ne fonctionne que pour la recherche par tranche salariés. La fonctionnalité sera rajouté plus tard à la recherche par zone géo</span>)
+                <input id="pagePrecedente" type="button" value="Page précédente">
+                <input id="chargerPage" type="button" value="Page suivante">
+                (<span>Attention la fonction page suivante/précédente ne fonctionne que pour la recherche par tranche salariés. La fonctionnalité sera rajouté plus tard à la recherche par zone géo</span>)
+    
+    
+            </div>
+            </div>
 
 
 
         </div>
 
 
-        <div id="testDate">
 
-            <input id="premiereDate" type="datetime" placeholder="XXXX/XX/XX">
-            <input id="deuxiemeDate" type="datetime" placeholder="YYYY/YY/YY">
-            <input id="compareDate" type="button" value="test comparaison">
+        
 
 
-
-
-        </div>
+        
         
 
 
