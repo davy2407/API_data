@@ -96,7 +96,8 @@ async function rechercheTaille(){
 	
 	const recherche = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&per_page=100&page='+page).then( resultat => resultat.json()).then( json => json )
     console.log(recherche);
-    console.log(recherche.etablissement[0].date_debut_activite)
+    
+    debutActivite(recherche.etablissement);
     
 }
 // function recup date debut activité et compare à la date demandé
