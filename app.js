@@ -1,7 +1,8 @@
 
 var page = 1;
+var pageRayon = 1;
 
-async function testLocalisation(){
+async function rayonLocalisation(){
     
     const ville = recupVille();
     const naf = recupCodeNaf();
@@ -14,7 +15,7 @@ async function testLocalisation(){
         // lat/long parametre: radius 5km de base 
         // affiche la deuxieme page 
         // 10 resultats par pages par default (per_page = ) pour modifier
-        const radius = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&per_page=100&page=1').then(resultat => resultat.json()).then(json => json)
+        const radius = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/near_point/?lat='+loc[1]+'&long='+loc[0]+'&activite_principale='+naf+'&radius='+rayon+'&per_page=100&page='+pageRayon).then(resultat => resultat.json()).then(json => json)
         console.log('affiche les entreprises de la ville demandée dans un rayon de '+rayon+' km ')
         console.log(radius);
         debutActivite(radius.etablissements);
@@ -121,7 +122,9 @@ function format(date){
 }
 // function charge page suivante
 
-
+function pageSuivanteRayon(){
+    pageRayon +=1;
+}
 
 
 
@@ -130,6 +133,15 @@ function pageSuivante(){
 }
 
 // function page précédente 
+
+function pagePrecedenteRayon(){
+    if (pageRayon == 1) {
+        pageRayon = 1;
+        
+    } else {
+        pageRayon-=1;
+    }
+}
 
 
 function pagePrecedente(){
@@ -193,7 +205,11 @@ document.getElementById('pagePrecedente').addEventListener('click', rechercheTai
 
 
 
-document.getElementById('boutton').addEventListener('click', testLocalisation);
+document.getElementById('boutton').addEventListener('click', rayonLocalisation);
+document.getElementById('chargerPageRayon').addEventListener('click', pageSuivanteRayon );
+document.getElementById('chargerPageRayon').addEventListener('click', rayonLocalisation);
+document.getElementById('pagePrecedenteRayon').addEventListener('click', pagePrecedenteRayon);
+document.getElementById('pagePrecedenteRayon').addEventListener('click',rayonLocalisation )
 
 
 
