@@ -146,7 +146,7 @@
             
                 <input id="pagePrecedente" type="button" value="Page précédente">
                 <input id="chargerPage" type="button" value="Page suivante">
-                (<span>Attention la fonction page suivante/précédente ne fonctionne que pour la recherche par tranche salariés. La fonctionnalité sera rajouté plus tard à la recherche par zone géo</span>)
+                <!-- (<span>Attention la fonction page suivante/précédente ne fonctionne que pour la recherche par tranche salariés. La fonctionnalité sera rajouté plus tard à la recherche par zone géo</span>) -->
     
     
             </div>
@@ -161,14 +161,20 @@
 
         <div id="testDate">
                 <p>Option -Entreprise en activité depuis au moins le :</p>
-                <input id="premiereDate" type="datetime" placeholder="AAAA/MM/JJ">
+                <!-- <input id="premiereDate" type="datetime" placeholder="AAAA/MM/JJ"> -->
                 <!-- <input id="deuxiemeDate" type="datetime" placeholder="YYYY/YY/YY"> -->
                 <!-- <input id="compareDate" type="button" value="test comparaison"> -->
+                <input type="date" id="premiereDate" name="trip-start"
+        value=""
+       min="1900-01-01" max="2100-12-31">
         
         
         
         
-            </div>
+        </div>
+
+
+        
 
 
 

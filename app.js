@@ -187,9 +187,9 @@ function compareDate(objet1,objet2){
 function recupDateUtilisateur(debutACTi){
     var date1 = document.getElementById('premiereDate').value;
     // var date2 = document.getElementById('deuxiemeDate').value;
-    date1 = date1.split('/');
+    date1 = date1.split('-');
     // date2 = date2.split('/');
-    
+ 
     compareDate(debutACTi,date1);
     
 }
