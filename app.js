@@ -165,8 +165,10 @@ function compareDate(objet1,objet2){
     var d2 = new Date(objet2[0],objet2[1],objet2[2]);
     if (d1 > d2) { 
         console.log("entreprise pas affiché", objet1);
+        // l'entreprise est trop récente
     } else if (d1 < d2) { 
         console.log("entreprise affiché", objet1); 
+        // l'entreprise respect la date d'ancienneté 
     } else {
         console.log("pas de date renseigné");
     }
