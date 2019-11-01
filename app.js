@@ -2,12 +2,25 @@
 var page = 1;
 var pageRayon = 1;
 
+
+// carte leaflet
+let mymap = L.map('map').setView([51.505, -0.09], 13);
+L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	maxZoom: 18,
+	
+}).addTo(mymap);
+
+
+// function permettant la recherche par rayon geo
+
 async function rayonLocalisation(){
     
-    const ville = recupVille();
-    const naf = recupCodeNaf();
-    const rayon = recupRayon();
+    const ville = recupVille(); // fonction qui recupere le nom de ville demandé par l'utilisateur. 
+    const naf = recupCodeNaf(); // fonction recupere le secteur d'activité demandé dans le menu déroulant 
+    const rayon = recupRayon(); // fonction recupere le rayon de recherche demandé par utilisateur
 
+    // utilisation de l'API adresse.data.gouv pour avoir accès aux coordonnées GPS de la ville demandée
     let loc = await fetch('https://api-adresse.data.gouv.fr/search/?q='+ville).then( resultat => resultat.json()).then(json => json.features[0].geometry.coordinates)
     
     async function radiusEntreprise(){
@@ -25,7 +38,7 @@ async function rayonLocalisation(){
 }
 
 
-// function capitalize
+// function capitalize , recupere une chaine STR et la modifie pour que la première lettre soit en MAJ
 
 function capitalize(str){
     return str[0].toUpperCase() + str.slice(1);
@@ -91,11 +104,17 @@ function recupTaille(){
 
 async function rechercheTaille(){
     const ville = recupVille();
-    const taille = recupTaille();
+    const taille = recupTaille(); // fonction recupère la taille d'entreprise demandé par l'utilisateur via le menu déroulant
     const naf = recupCodeNaf();
 	
 	const recherche = await fetch('https://entreprise.data.gouv.fr/api/sirene/v1/full_text/'+ville+'?activite_principale='+naf+'&tranche_effectif_salarie_entreprise='+taille+'&per_page=100&page='+page).then( resultat => resultat.json()).then( json => json )
     console.log(recherche);
+    for (let i = 0; i < recherche.etablissement.length; i++) {
+        // console.log(recherche.etablissement[i].latitude);
+        // console.log(recherche.etablissement[i].longitude);
+        
+    }
+    addElement(recherche.etablissement);
     
     debutActivite(recherche.etablissement);
     
@@ -216,3 +235,53 @@ document.getElementById('pagePrecedenteRayon').addEventListener('click',rayonLoc
 
 
 
+
+
+
+// function entrainement
+
+
+
+
+function addElement (liste) {
+    for (let i = 0; i <= liste.length; i++) {
+        var newDiv = document.createElement("div");
+        newDiv.classList.add("listeElement");
+        
+        var lat = liste[i].latitude;
+        var long = liste[i].longitude;
+        newDiv.setAttribute("lat", lat);
+        newDiv.setAttribute("long", long);
+            
+        
+
+        // newDiv.setAttribute("lat", liste[i].latitude);
+        // newDiv.setAttribute("long", liste[i].id);
+
+        var newContent = document.createTextNode(liste[i].nom_raison_sociale);
+
+        newDiv.appendChild(newContent);
+        var currentDiv = document.querySelector(".list");
+        currentDiv.appendChild(newDiv);
+        
+        
+    }
+//     // crée un nouvel élément div
+//     // var newDiv = document.createElement("div");
+//     // newDiv.classList.add("listeElement");
+//     newDiv.setAttribute("lat",listeLatLong[i].latitude);
+//     newDiv.setAttribute("long",listeLatLong[i].longitude);
+//     // et lui donne un peu de contenu
+//     var newContent = document.createTextNode('Hi there and greetings!');
+//     // ajoute le nœud texte au nouveau div créé
+//     newDiv.appendChild(newContent);
+    
+//     // ajoute le nouvel élément créé et son contenu dans le DOM
+//     var currentDiv = document.querySelector(".list");
+//     currentDiv.appendChild(newDiv);
+//   }
+
+// //   for (let i = 0; i < 10; i++) {
+// //      addElement();
+      
+}

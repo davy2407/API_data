@@ -19,3 +19,38 @@
     margin-top: 100px;
 }
 
+
+.list{
+    width: 100%;
+    
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+
+
+.listeElement{
+    /* height: 150px;
+    width: 150px; */
+    border: 1px solid green;
+    padding: 30px;
+    
+
+}
+
+#container{
+    display: grid;
+    grid-template-columns: 7fr 4fr;
+    
+    
+}
+
+
+.map{
+    background-color: red;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100vh;
+}
