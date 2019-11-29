@@ -12,7 +12,11 @@
 
     <body>
         <h1>
-            Les Résultats sont affichés dans la console!
+            Annuaire d'entreprises
+            Ceci est une première version. 
+            Plusieurs options sont actuellement en travaux. 
+            La création automatique de marqueurs sur la Map n'est pas encore valide ainsi que le filtre
+            de recherche par date ( voir console)
         </h1>
 
         <input id="rechercheVille" type="text" placeholder="Ville (ex : Petit-quevilly ; Rouen )" spellcheck="true">
@@ -113,9 +117,9 @@
         <option value="100">100 km</option>
   </select>
   
-        <input id="boutton" type="button" value="Rechercher">
-        <input id="pagePrecedenteRayon" type="button" value="Page précédente">
-        <input id="chargerPageRayon" type="button" value="Page suivante">
+        <input class="bouttonAPP" id="boutton" type="button" value="Rechercher">
+        <input class="bouttonAPP" id="pagePrecedenteRayon" type="button" value="Page précédente">
+        <input class="bouttonAPP" id="chargerPageRayon" type="button" value="Page suivante">
         </div>
         <div id="tailleEntreprise">
             <p>Recherche par taille tranche salarié entreprise</p>
@@ -144,12 +148,12 @@
         
         
         
-        <input id="bouttonTaille" type="button" value="recherche taille">
+        <input class="bouttonAPP" id="bouttonTaille" type="button" value="recherche taille">
         <div id="charger">
 
             
-                <input id="pagePrecedente" type="button" value="Page précédente">
-                <input id="chargerPage" type="button" value="Page suivante">
+                <input class="bouttonAPP" id="pagePrecedente" type="button" value="Page précédente">
+                <input class="bouttonAPP" id="chargerPage" type="button" value="Page suivante">
                 <!-- (<span>Attention la fonction page suivante/précédente ne fonctionne que pour la recherche par tranche salariés. La fonctionnalité sera rajouté plus tard à la recherche par zone géo</span>) -->
     
     
@@ -185,7 +189,7 @@
 
 
 
-        <div class="map" id="map">tetststststst</div>
+        <div class="map" id="map"></div>
 
 
 
@@ -209,7 +213,9 @@
         <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
    crossorigin=""></script>
+        <script src="vendor.js"></script>
         <script src="app.js"></script>
+        
 
     </body>
 </html>

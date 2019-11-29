@@ -1,3 +1,44 @@
+@media screen and (max-width: 400px) {
+    body{
+        max-width: 390px;
+    }
+    
+    #map{
+        display: none;
+    }
+
+    .list{
+        display: block;
+        
+        
+        max-width: 360px;
+    }
+
+    
+
+    #container{
+        display: block;
+        
+        
+        max-width:360px;
+        
+    }
+
+    select{
+        max-width: 150px;
+    }
+
+}
+
+body{
+    background-color: rgb(49, 48, 48);
+}
+
+select{
+    max-width: 360px;
+}
+
+
 #boutton{
     width: 90px;
 }
@@ -5,13 +46,17 @@
 
 #secteurActivite{
     margin-top: 10%;
-    border: 1px solid blue;
+    background-color: whitesmoke;
+    border-radius: 20px;
+    padding: 1em;
 }
 
 
 #tailleEntreprise{
     margin-top: 10%;
-    border: 1px solid red;
+    border-radius: 20px;
+    background-color:whitesmoke;
+    padding: 1em;
 }
 
 
@@ -23,9 +68,10 @@
 .list{
     width: 100%;
     
-    border: 1px solid black;
+    
     display: grid;
     grid-template-columns: repeat(3,1fr);
+
 }
 
 
@@ -33,9 +79,21 @@
     /* height: 150px;
     width: 150px; */
     border: 1px solid green;
-    padding: 30px;
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    
     
 
+}
+
+.listeElement:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    color: whitesmoke;
+    
 }
 
 #container{
@@ -49,8 +107,14 @@
 .map{
     background-color: red;
     position: sticky;
+    
     top: 0;
     right: 0;
     left: 0;
-    height: 100vh;
+    height: 150vh;
+    
+}
+
+.bouttonAPP{
+    border-radius: 20px;
 }

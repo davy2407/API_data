@@ -3,13 +3,6 @@ var page = 1;
 var pageRayon = 1;
 
 
-// carte leaflet
-let mymap = L.map('map').setView([51.505, -0.09], 13);
-L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-	maxZoom: 18,
-	
-}).addTo(mymap);
 
 
 // function permettant la recherche par rayon geo
@@ -32,8 +25,10 @@ async function rayonLocalisation(){
         console.log('affiche les entreprises de la ville demandée dans un rayon de '+rayon+' km ')
         console.log(radius);
         debutActivite(radius.etablissements);
+        addElement(radius.etablissements);
     }
     radiusEntreprise();
+    
    
 }
 
@@ -115,6 +110,10 @@ async function rechercheTaille(){
         
     }
     addElement(recherche.etablissement);
+    
+    
+        
+    
     
     debutActivite(recherche.etablissement);
     
@@ -285,3 +284,42 @@ function addElement (liste) {
 // //      addElement();
       
 }
+
+
+
+
+
+// carte leaflet
+let mymap = L.map('map').setView([49.442, 1.09], 13);
+L.tileLayer('//{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+	maxZoom: 18,
+	
+}).addTo(mymap);
+
+function addMarker(lat,lng ) {
+    L.popup({
+        autoclose : false ,
+        closeOnEscapeKey : false,
+        closeOnClick : false , 
+        closeButton : false,
+        className : 'marker',
+        maxWidth : 400
+
+    })
+    .setLatLng([lat, lng])
+    .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+    .openOn(mymap)
+}
+
+var popup = L.popup()
+    .setLatLng([49.442, 1.09])
+    .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+    .openOn(mymap);
+
+
+
+
+
+
+
